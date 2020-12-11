@@ -1,0 +1,257 @@
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+}
+
+.App {
+  font-family: "Dosis", sans-serif;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.widget-container {
+  width: 460px;
+  height: auto;
+
+}
+
+.container {
+  border-radius: 4px;
+  align-items: center;
+}
+
+.search-container {
+  padding-bottom: 16px;
+}
+
+.search-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+}
+
+ .search-input-container svg {
+  position: absolute;
+  visibility: collapse;
+  right: 20px;
+  font-size: 1.2rem;
+  color: #beafcc;
+
+}
+
+.active svg {
+  visibility: visible;
+}
+
+.search-bar {
+  margin: 0px 0px 2px;
+}
+
+.search {
+  font-family: "Dosis", sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+  height: 7vh;
+  border-radius: 30px;
+  border: 1px solid #b5c1c1;
+  outline: 0;
+  padding-left: 20px;
+}
+.search:focus {
+  border: 3px solid #b4f2f2;
+}
+.search-checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+  margin-top: 16px;
+  transform: translateX(26px);
+}
+
+.showCompletedText {
+margin-left: 14px;
+}
+
+.showCompletedCheck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 12px;
+  width: 12px;
+  background-color: #e1d7eb;
+  border-radius: 2px;
+  z-index: 10;
+
+}
+
+.showCompletedCheck svg{
+  display: none;
+  font-size: 9px;
+  color: #f0eaf6;
+}
+
+.show-complete .showCompletedCheck {
+  background-color:  #d7bdf6;
+}
+
+.show-complete svg{
+display: inline-block;
+}
+
+.todo-list-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  
+  border-radius: 20px;
+  transition: 0.01s;
+  
+
+}
+
+.main-list:hover {
+  border: 3px solid #8a5fee;
+}
+
+
+.to-do-item {
+  
+  position: relative;
+  align-items: center;
+  display: flex;
+  width: 90%;
+  border-radius: 8px 0 8px 8px;
+  height: 8vh;
+  padding-left: 20px;
+  z-index: 1;
+}
+
+.completes-container {
+  margin-bottom: 8px;
+  border: 1px solid #c9c1dc;
+}
+
+.completes-container.hide-complete {
+  transition: 0.4s;
+  display: none;
+}
+
+.empty {
+  display: none;
+}
+
+.complete {
+
+  display: none;
+}
+
+
+.to-do-complete:hover {
+  width: 100%;
+  background-color: #f0eaf6;
+  border: 1px solid #d7bdf6;
+  border-left: 24px solid #d7bdf6;
+}
+
+
+.checkbox {
+  z-index: 100;
+  background-color: #f0eaf6;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+}
+
+.checkbox svg{
+  display: none;
+  font-size: 12px;
+  color: #f0eaf6;
+}
+
+.to-do-complete .checkbox { background-color:  #d7bdf6;}
+
+.to-do-complete .checkbox svg {
+display: inline;
+}
+
+.to-do-item:hover .checkbox{
+  background-color:  #d7bdf6;
+}
+
+
+.todo-item-name {
+  transform: translateX(20px);
+  word-spacing: 1px;
+}
+
+.to-do-complete .todo-item-name{
+  color: #8E838E;
+}
+
+
+
+.delete-item {
+  position: absolute;
+  display: none;
+  justify-content: center;
+  z-index: 10;
+  height: auto;
+  width: auto;
+  right: 20px;
+  margin: 0 0 0;
+}
+.to-do-item:hover .delete-item {
+  display: flex;
+}
+
+
+.delete-item svg {
+  z-index: -1;
+  color: #d7bdf6;
+  font-size: 20px;
+}
+
+.to-do-item input {
+  left: 0;
+}
+.add-todo-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-todo {
+  margin: 10px 0 10px;
+}
+
+.add-todo-button {
+  font-family: "Dosis", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  border: 4px solid #ebb1f4;
+  background-color: #eddaf4;
+  height: 5.3vh;
+  width: 80%;
+  border-radius: 30px;
+  letter-spacing: 2px;
+  word-spacing: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.add-todo-button:hover {
+  height: 6vh;
+  border: 6px solid #fb8ef4;
+  background-color: #e6a3f4;
+  font-weight: 800;
+}
