@@ -1,51 +1,44 @@
-const express = require('express');
 const User = require('../../models/User');
-const router = express.Router();
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const { secretOrKey, JWTExpirationTime } = require('../../config/keys');
-const validateLoginInput = require('../../validation/login');
+const { sign } = require('jsonwebtoken');
+const { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } = require('../../config/keys');
+const { userLoginAuth } = require('../../validation/user/login');
+const { asyncHandler } = require('../../middlewares/errorHandlers');
 
-router.post('/', (req, res) => {
-  const { error, isValid } = validateLoginInput(req.body);
-
-  if (!isValid) return res.status(400).json(errors);
-
+module.exports = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
-  User.findOne({ email: email }).then((user) => {
-    if (!user)
-      return res.status(404).json({ emailnotfound: 'Email not found' });
 
-    bcrypt.compare(password, user.password).then((isMatch) => {
-      if (isMatch) {
-        // User matched
-        // create JWT payload
-        const payload = {
-          id: user.id,
-          name: user.name,
-        };
+  const validate = await userLoginAuth.validateAsync(req.body);
 
-        // Sign token
-        jwt.sign(
-          payload,
-          secretOrKey,
-          {
-            expiresIn: JWTExpirationTime,
-          },
-          (err, token) => {
-            res.json({
-              success: true,
-              token: 'Bearer ' + token,
-            });
-          }
-        );
-      } else {
-        return res
-          .status(400)
-          .json({ incorrectpassword: 'Incorrect password' });
-      }
-    });
+  user = await User.findOne({ email: email });
+
+  if (user == null)
+    return res.status(400).json({ emailnotfound: 'Email not found' });
+
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    return res.status(400).json({ incorrectpassword: 'Incorrect password' });
+  }
+
+  const payload = {
+    id: user.id,
+    name: user.name,
+  };
+
+  // Sign tokens
+  const refreshToken = sign(payload, REFRESH_TOKEN_KEY, { expiresIn: '7d' });
+  const accessToken = sign(payload, ACCESS_TOKEN_KEY, {
+    expiresIn: '15min',
   });
-});
 
-module.exports = router;
+  // send cookies
+  res
+    .cookie('refresh-token', refreshToken, {
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // exp in 7 days
+    })
+    .cookie('access-token', accessToken, {
+      expires: new Date(Date.now() + 1000 * 60 * 15), // 15 mins
+    })
+    // send 200
+    .sendStatus(200);
+});

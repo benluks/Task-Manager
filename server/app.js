@@ -6,8 +6,6 @@ const {
   errorHandler,
   initUnhandledExceptions,
 } = require('./middlewares/errorHandlers');
-const passport = require('passport');
-const logger = require('morgan');
 
 const app = express();
 

@@ -1,4 +1,6 @@
 module.exports = {
-  secretOrKey: 'secret',
-  JWTExpirationTime: 31556926,
+  ACCESS_TOKEN_KEY:
+    'd7dadbdcb7d695104b70b0c23b53b45b3f5c5e3df6f7dfffa7998e5e428200b6b33c9117b0ee21a1a7918b8aaba6ed8f53a7b956a11104272d43b6b65ee38ebb',
+  REFRESH_TOKEN_KEY:
+    'e2d226da13e1ca95dcbbab01c34eb2f44d4ace08cff30be80a2dce1935714528438e50c4cfba353d91b1bf61b3d3c9b09644714c41a8a5dafd5c4c51f0ef7750',
 };

@@ -1,13 +1,11 @@
-import React from "react";
-import "./App.css";
-import TodoList from "./components/todoList";
+import React, { useState } from 'react';
+import './App.css';
+import TodoList from './components/todoList';
 
 function App() {
-  // const [completedItems, setCompletedItems] = useState([]);
-
   return (
-    <div className="App">
-      <div className="container widget-container">
+    <div className='App'>
+      <div className='container widget-container'>
         <TodoList />
       </div>
     </div>

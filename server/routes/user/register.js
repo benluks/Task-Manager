@@ -1,20 +1,18 @@
 const bcrypt = require('bcrypt');
-const { ValidationError } = require('joi');
 const { asyncHandler } = require('../../middlewares/errorHandlers');
 
 const User = require('../../models/User');
-const { userRegisterAuth } = require('../../validation/register');
+const { userRegisterAuth } = require('../../validation/user/register');
 
 module.exports = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
-  const validate = userRegisterAuth.validateAsync(req.body);
+  const validate = await userRegisterAuth.validateAsync(req.body);
 
   // Check if user exists
-  const doesUserExist = await User.find({ email: email });
+  const doesUserExist = await User.findOne({ email: email });
 
-  if (doesUserExist.length !== 0)
-    throw createError.Conflict('User Already Exists');
+  if (doesUserExist) return res.status(400).send('User Already Exists');
 
   // Hash Password
   bcrypt.genSalt(10, (err, salt) => {
